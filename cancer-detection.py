@@ -33,10 +33,17 @@ svm_pred = svm_clf.predict(X_test)
 print(f"--- SVM Classification Report ---")
 print(metrics.classification_report(y_test, svm_pred, target_names=data.target_names))
 
+print(f"--- Random Florest Classification Report ---")
+print(metrics.classification_report(y_test, rf_pred, target_names=data.target_names))
+
 # 7. Error Metrics (Corrected comparison)
 mse = mean_squared_error(y_test, svm_pred)
 print(f"Model: {svm_clf.__class__.__name__}")
 print(f"Mean Squared Error: {mse:.3f}\n")
+
+mse_rf = mean_squared_error(y_test, svm_pred)
+print(f"Model: {rf_clf.__class__.__name__}")
+print(f"Mean Squared Error: {mse_rf:.3f}\n")
 
 # 8. Confusion Matrix Visualization
 
@@ -45,6 +52,11 @@ disp = metrics.ConfusionMatrixDisplay.from_predictions(
 )
 disp.figure_.suptitle("Confusion Matrix: Random Forest")
 plt.show()
+
+disp = metrics.ConfusionMatrixDisplay.from_predictions(y_test, svm_pred) # Comparação
+disp.figure_.suptitle("Confusion Matrix: Support Vector Machine")
+plt.show()
+
 
 # 9. Data Exploration - Feature Distribution
 
